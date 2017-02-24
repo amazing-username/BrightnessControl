@@ -2,7 +2,6 @@
 #include <fstream>
 #include <ios>
 #include "AlterBrightness.h"
-using namespace std;
 
 AlterBrightness::AlterBrightness()
 {
@@ -34,8 +33,8 @@ void AlterBrightness::setMaxBrightness(unsigned& max)
 
 void AlterBrightness::chooseChange(char* changeChoice[])
 {
-	ofstream s;
-	s.open("/sys/class/backlight/intel_backlight/brightness", ios::out);
+	std::ofstream s;
+	s.open("/sys/class/backlight/intel_backlight/brightness", std::ios::out);
 	//std::cout << changeChoice << std::endl;
 	//if (1)
 	//	std::cout << changeChoice.compare("inc") << std::endl;
@@ -46,13 +45,13 @@ void AlterBrightness::chooseChange(char* changeChoice[])
 	{
 		AlterBrightness::increaseBrightness();			
 		std::cout << "Increase" << std::endl;
-		std::cout << AlterBrightness::getCurrentBrightness();
+		std::cout << AlterBrightness::getCurrentBrightness() << std::endl;
 		s << AlterBrightness::getCurrentBrightness();
 	}
 	else
 	{
 		AlterBrightness::decreaseBrightness();
-		std::cout << AlterBrightness::getCurrentBrightness();
+		std::cout << AlterBrightness::getCurrentBrightness() << std::endl;
 		s << AlterBrightness::getCurrentBrightness();
 	}	
 	s.close();
