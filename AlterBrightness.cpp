@@ -2,9 +2,12 @@
 #include <fstream>
 #include <ios>
 #include "AlterBrightness.h"
+#include "Brightness.h"
 
 AlterBrightness::AlterBrightness()
 {
+	currentBrightness = Brightness::getCurrentBrightness();
+	maxBrightness = Brightness::getMaxBrightness();
 }	
 AlterBrightness::AlterBrightness(unsigned& change, unsigned& current, unsigned& max)
 {
@@ -22,38 +25,53 @@ void AlterBrightness::setDecrement(unsigned& change)
 {
 	decrement = change;
 }	
-void AlterBrightness::setCurrentBrightness(unsigned& current)
+/**
+void AlterBrightness::setCurrentBrightness()
 {
 	currentBrightness = current;
 }	
-void AlterBrightness::setMaxBrightness(unsigned& max)
+void AlterBrightness::setMaxBrightness()
 {
 	maxBrightness = max;
 }	
+*/
+void AlterBrightness::setPercentageBrightness(float& percent)
+{
+	percentageBrightness = percent;
+}
 
 void AlterBrightness::chooseChange(char* changeChoice[])
 {
 	std::ofstream s;
 	s.open("/sys/class/backlight/intel_backlight/brightness", std::ios::out);
-	//std::cout << changeChoice << std::endl;
-	//if (1)
-	//	std::cout << changeChoice.compare("inc") << std::endl;
-	//else
-	//	std::cout << "0 is not true" << std::endl;
-	//if (changeChoice.compare(AlterBrightness::getIncrease()) == 0)
+
 	if (strcmp(*changeChoice, AlterBrightness::getIncrease()) == 0)
 	{
 		AlterBrightness::increaseBrightness();			
-		std::cout << "Increase" << std::endl;
+
 		std::cout << AlterBrightness::getCurrentBrightness() << std::endl;
 		s << AlterBrightness::getCurrentBrightness();
 	}
-	else
+	else if (strcmp(*changeChoice, AlterBrightness::getDecrease()) == 0)
 	{
 		AlterBrightness::decreaseBrightness();
+
 		std::cout << AlterBrightness::getCurrentBrightness() << std::endl;
 		s << AlterBrightness::getCurrentBrightness();
 	}	
+	else if (strcmp(*changeChoice, AlterBrightness::getPercent()) == 0)
+	{
+
+		std::cout << "Percentage" << std::endl;
+		setBrightnessByPercentage();
+
+		std::cout << percentageBrightness / 100 << std::endl;
+		s << currentBrightness;
+	}
+	else
+	{
+		std::cout << "Neither increase or decrease" << std::endl;
+	}
 	s.close();
 }	
 void AlterBrightness::increaseBrightness()
@@ -74,6 +92,18 @@ void AlterBrightness::decreaseBrightness()
 	else
 		currentBrightness = 1;
 }	
+void AlterBrightness::setBrightnessByPercentage()
+{
+	if (AlterBrightness::getPercentageBrightness() < 0 || AlterBrightness::getPercentageBrightness() > 100)
+	{
+		std::cout << "Has to be between 0 and 100" <<std::endl;
+	}
+	else
+	{
+		currentBrightness = (maxBrightness * (percentageBrightness/ 100));
+		std::cout << currentBrightness << std::endl;
+	}
+}
 
 
 unsigned AlterBrightness::getIncrement() const 
@@ -93,6 +123,11 @@ unsigned AlterBrightness::getMaxBrightness() const
 	return maxBrightness;
 }		
 
+float AlterBrightness::getPercentageBrightness() const
+{
+	return percentageBrightness;
+}
+
 char* AlterBrightness::getIncrease() 
 {
 	return increase;
@@ -101,3 +136,7 @@ char* AlterBrightness::getDecrease()
 {
 	return decrease;
 }	
+char* AlterBrightness::getPercent()
+{
+	return percent;
+}

@@ -2,6 +2,8 @@
 #include <fstream>
 #include "Brightness.h"
 
+unsigned Brightness::maxBrightness = 0;
+unsigned Brightness::currentBrightness = 30;
 Brightness::Brightness()
 {
 }	
@@ -25,11 +27,11 @@ void Brightness::grabMaxBrightness()
 	input.close();
 }
 
-unsigned Brightness::getCurrentBrightness() const
+unsigned Brightness::getCurrentBrightness()
 {
 	return currentBrightness;
 }
-unsigned Brightness::getMaxBrightness() const
+unsigned Brightness::getMaxBrightness()
 {
 	return maxBrightness;
 }	

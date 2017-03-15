@@ -9,11 +9,11 @@ public:
 	void grabBrightness();
 	void grabMaxBrightness();
 
-	unsigned getCurrentBrightness() const;
-	unsigned getMaxBrightness() const;
+	static unsigned getCurrentBrightness();
+	static unsigned getMaxBrightness();
 
 private:
-	unsigned currentBrightness;
-	unsigned maxBrightness;
+	static unsigned currentBrightness;
+	static unsigned maxBrightness;
 };	
 #endif
