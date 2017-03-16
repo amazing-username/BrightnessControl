@@ -1,6 +1,5 @@
 #include <iostream>
-#include <cstring>
-#include <fstream>
+//#include <cstring>
 #include <ios>
 #include "AlterBrightness.h"
 
@@ -10,6 +9,8 @@ AlterBrightness::AlterBrightness()
 	maxBrightness = Brightness::getMaxBrightness();
 	AlterBrightness::options = new std::vector<std::string>;
 	initializeOptions();
+	overwriteBrightness = new std::ofstream;	
+	(*overwriteBrightness).open("/sys/class/backlight/intel_backlight/brightness", std::ios::out);
 }	
 AlterBrightness::AlterBrightness(Brightness* br)
 {
@@ -17,7 +18,8 @@ AlterBrightness::AlterBrightness(Brightness* br)
 	maxBrightness = (*br).getMaxBrightness();
 	options = new std::vector<std::string>;
 	initializeOptions();
-	
+	overwriteBrightness = new std::ofstream;	
+	(*overwriteBrightness).open("/sys/class/backlight/intel_backlight/brightness", std::ios::out);
 }
 AlterBrightness::AlterBrightness(const unsigned& change, const unsigned& current, const unsigned& max)
 {
@@ -29,6 +31,7 @@ AlterBrightness::AlterBrightness(const unsigned& change, const unsigned& current
 AlterBrightness::~AlterBrightness()
 {
 	delete options;
+	delete overwriteBrightness;
 }
 
 void AlterBrightness::setIncrement(const unsigned& change)
@@ -62,8 +65,8 @@ void AlterBrightness::initializeOptions()
 
 void AlterBrightness::chooseChange(const std::string& changeChoice)
 {
-	std::ofstream s;
-	s.open("/sys/class/backlight/intel_backlight/brightness", std::ios::out);
+	//std::ofstream s;
+	//s.open("/sys/class/backlight/intel_backlight/brightness", std::ios::out);
 	//std::cout << (*options).at(0) << std::endl;
 
 	//if (strcmp(*changeChoice, getIncrease()) == 0)
@@ -73,7 +76,7 @@ void AlterBrightness::chooseChange(const std::string& changeChoice)
 		increaseBrightness();			
 
 		std::cout << getCurrentBrightness() << std::endl;
-		s << getCurrentBrightness();
+		(*overwriteBrightness) << getCurrentBrightness();
 	}
 	//else if (strcmp(*changeChoice, getDecrease()) == 0)
 	else if ((*options).at(1).compare(changeChoice) == 0)
@@ -81,7 +84,7 @@ void AlterBrightness::chooseChange(const std::string& changeChoice)
 		decreaseBrightness();
 
 		std::cout << getCurrentBrightness() << std::endl;
-		s << getCurrentBrightness();
+		(*overwriteBrightness) << getCurrentBrightness();
 	}	
 	//else if (strcmp(*changeChoice, getPercent()) == 0)
 	else if ((*options).at(2).compare(changeChoice) == 0)
@@ -91,13 +94,13 @@ void AlterBrightness::chooseChange(const std::string& changeChoice)
 		setBrightnessByPercentage();
 
 		std::cout << percentageBrightness << "%" << std::endl;
-		s << currentBrightness;
+		(*overwriteBrightness) << currentBrightness;
 	}
 	else
 	{
 		std::cout << "Neither increase or decrease" << std::endl;
 	}
-	s.close();
+	//s.close();
 }	
 void AlterBrightness::increaseBrightness()
 {
@@ -134,6 +137,10 @@ void AlterBrightness::setBrightnessByPercentage()
 std::vector<std::string>* AlterBrightness::getOptions()
 {
 	return options;
+}
+std::ofstream* AlterBrightness::getStreamToOverwriteBrightness()
+{
+	return overwriteBrightness; 
 }
 
 unsigned AlterBrightness::getIncrement() const 

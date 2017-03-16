@@ -1,5 +1,6 @@
 #ifndef ALTERBRIGHTNESS_H
 #define ALTERBRIGHTNESS_H
+#include <fstream>
 #include <cstring>
 #include <string>
 #include <vector>
@@ -15,6 +16,7 @@ public:
 	~AlterBrightness();
 
 	std::vector<std::string>* options;
+	//void setStreamToOverwriteBrightness();
 
 	void setIncrement(const unsigned&);
 	void setDecrement(const unsigned&);
@@ -29,6 +31,7 @@ public:
 	void setBrightnessByPercentage();
 
 	std::vector<std::string>* getOptions();
+	std::ofstream* getStreamToOverwriteBrightness();
 
 	unsigned getIncrement() const;
 	unsigned getDecrement() const;
@@ -45,6 +48,7 @@ public:
 	*/
 	
 private:	
+	std::ofstream* overwriteBrightness;
 	unsigned increment;
 	unsigned decrement;
 	unsigned currentBrightness;
