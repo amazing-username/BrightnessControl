@@ -10,16 +10,15 @@ class AlterBrightness
 {
 public:	
 	AlterBrightness();
-	AlterBrightness(Brightness*);
-	AlterBrightness(const unsigned&, const unsigned&, const unsigned&);
+	AlterBrightness(const Brightness&);
+	AlterBrightness(const int&, const int&, const int&);
 
 	~AlterBrightness();
 
-	std::vector<std::string>* options;
-	//void setStreamToOverwriteBrightness();
+	std::vector<std::string> options{};
 
-	void setIncrement(const unsigned&);
-	void setDecrement(const unsigned&);
+	void setIncrement(const int&);
+	void setDecrement(const int&);
 	void setCurrentBrightness();
 	void setMaxBrightness();
 	void setPercentageBrightness(const float&);
@@ -30,35 +29,24 @@ public:
 	void decreaseBrightness();
 	void setBrightnessByPercentage();
 
-	std::vector<std::string>* getOptions();
-	std::ofstream* getStreamToOverwriteBrightness();
+	std::vector<std::string> getOptions();
+	//std::ofstream getStreamToOverwriteBrightness();
 
-	unsigned getIncrement() const;
-	unsigned getDecrement() const;
-	unsigned getCurrentBrightness() const;
-	unsigned getMaxBrightness() const;
+	int getIncrement() const;
+	int getDecrement() const;
+	int getCurrentBrightness() const;
+	int getMaxBrightness() const;
 
 	float getPercentageBrightness() const;
 	float floatToPercent(const float&) const;
 
-	/**
-	char* getIncrease();
-	char* getDecrease();
-	char* getPercent();
-	*/
-	
 private:	
-	std::ofstream* overwriteBrightness;
-	unsigned increment;
-	unsigned decrement;
-	unsigned currentBrightness;
-	unsigned maxBrightness;
-	float percentageBrightness;
-	/**
-	char* increase;
-	char* decrease;
-	char* percent;
-	*/
+	std::ofstream overwriteBrightness{};
+	int increment{};
+	int decrement{};
+	int currentBrightness{};
+	int maxBrightness{};
+	float percentageBrightness{};
 };
 
 #endif

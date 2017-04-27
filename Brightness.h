@@ -15,8 +15,8 @@ public:
 	static unsigned getMaxBrightness();
 
 private:
-	std::ifstream* readBrightnessValues;
-	static unsigned currentBrightness;
-	static unsigned maxBrightness;
+	std::ifstream readBrightnessValues{};
+	static int currentBrightness;
+	static int maxBrightness;
 };	
 #endif
