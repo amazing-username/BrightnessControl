@@ -34,6 +34,7 @@ int main(int argc, char* argv[])
 		if (control.compare("cur") == 0)
 		{
 			br.grabBrightness();	
+			br.grabMaxBrightness();
 			AlterBrightness ab{};
 			ab.chooseChange(control);
 		}
@@ -52,7 +53,6 @@ int main(int argc, char* argv[])
 		std::cout << "If cur then the current percentage is printed" << std::endl;
 		std::cout << "Adjusting the percentage by brightness is recommended" << std::endl << std::endl;
 		std::cout << "Example: Hot.out per 30" << std::endl << std::endl;
-	
 	}
 
 	return 0;

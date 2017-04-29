@@ -24,7 +24,7 @@ AlterBrightness::AlterBrightness(const int& change, const int& current, const in
 	maxBrightness = max;
 }	
 AlterBrightness::~AlterBrightness()
-{ }
+{ overwriteBrightness.close(); }
 
 void AlterBrightness::setIncrement(const int& change)
 { increment = change; }	
@@ -67,7 +67,11 @@ void AlterBrightness::chooseChange(const std::string& changeChoice)
 		overwriteBrightness << currentBrightness;
 	}
 	else if (options.at(3).compare(changeChoice) == 0)
-		std::cout << "The current percentage is: " << getCurrentBrightness() << "%" << std::endl;
+	{	
+		float percentage{static_cast<float>(getCurrentBrightness()) / static_cast<float>(getMaxBrightness())};
+		percentage*=100;
+		std::cout << "The current percentage is: " << percentage << "%" << std::endl;
+	}	
 	else
 		std::cout << "Neither increase or decrease" << std::endl;
 }	

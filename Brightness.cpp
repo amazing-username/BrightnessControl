@@ -3,7 +3,7 @@
 #include "Brightness.h"
 
 int Brightness::maxBrightness = 0;
-int Brightness::currentBrightness = 30;
+int Brightness::currentBrightness = 0;
 Brightness::Brightness()
 { } 
 
