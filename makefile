@@ -1,2 +1,2 @@
-Hot.out: AlterBrightness.cpp AlterBrightness.h Main.cpp Brightness.cpp Brightness.h
-	g++ AlterBrightness.cpp AlterBrightness.h Main.cpp Brightness.cpp Brightness.h -o Hot.out
+Hot.out: AlterBrightness.cpp AlterBrightness.h Main.cpp Brightness.cpp Brightness.h RetrieveArguments.h
+	g++ AlterBrightness.cpp AlterBrightness.h Main.cpp Brightness.cpp Brightness.h RetrieveArguments.h -o Hot.out

@@ -30,7 +30,6 @@ public:
 	void setBrightnessByPercentage();
 
 	std::vector<std::string> getOptions();
-	//std::ofstream getStreamToOverwriteBrightness();
 
 	int getIncrement() const;
 	int getDecrement() const;

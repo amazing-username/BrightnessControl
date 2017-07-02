@@ -1,32 +1,31 @@
 #include <iostream>
 #include <iomanip>
 #include <fstream>
-
 #include "AlterBrightness.h"
 #include "Brightness.h"
+#include"RetrieveArguments.h"
 
 int main(int argc, char* argv[])
 {
 
-	
+	RetrieveArguments args{argc, argv};
 	Brightness br{};
 	if (argc == 3)
 	{
-		std::string control{*(argv + 1)};
-		auto changeAmount = atoi(*(argv + 2));
-		auto brightnessPercentage = atoi(*(argv + 2));
+		auto control{args.argumentElements()[1]};
+		auto changeAmount = args.argumentElements()[2];
+		auto brightnessPercentage = args.argumentElements()[2];
 		
 		br.grabBrightness();
 		br.grabMaxBrightness();
 
 		
 		AlterBrightness ab{};
-		ab.setIncrement(changeAmount);
-		ab.setDecrement(changeAmount);
-		ab.setPercentageBrightness(brightnessPercentage);
+		ab.setIncrement(atoi(changeAmount.c_str()));
+		ab.setDecrement(atoi(changeAmount.c_str()));
+		ab.setPercentageBrightness(atoi(brightnessPercentage.c_str()));
 
 		ab.chooseChange((control));
-			
 	}
 	else if (argc == 2) 
 	{
