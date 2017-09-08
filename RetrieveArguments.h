@@ -3,6 +3,7 @@
 
 #include<vector>
 #include<string>
+#include<tuple>
 
 class RetrieveArguments
 {
@@ -22,9 +23,7 @@ private:
 RetrieveArguments::RetrieveArguments(const int amountOfArguments, char* argumentsFromInit[])
 {
 	for (auto index=1; index!=amountOfArguments; ++index)
-	{
-		arguments.push_back(std::string{*(argumentsFromInit + index)});
-	}
+		arguments.push_back(std::string(*(argumentsFromInit + index)));
 }
 
 void RetrieveArguments::initilize(const int amountOfArguments, char* argumentsFromInit[])

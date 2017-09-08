@@ -12,9 +12,9 @@ int main(int argc, char* argv[])
 	Brightness br{};
 	if (argc == 3)
 	{
-		auto control{args.argumentElements()[1]};
-		auto changeAmount = args.argumentElements()[2];
-		auto brightnessPercentage = args.argumentElements()[2];
+		auto control = args.argumentElements().at(0);
+		auto changeAmount = args.argumentElements().at(1);
+		auto brightnessPercentage = args.argumentElements().at(1);
 		
 		br.grabBrightness();
 		br.grabMaxBrightness();
